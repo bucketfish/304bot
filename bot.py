@@ -145,7 +145,7 @@ async def on_message(ctx):
     if 'bi' in ctx.content.lower():
         thing = random.randint(0, 10)
         if thing == 0:
-            await ctx.channel.send('bisexuals are   werewolves confirmed')
+            await ctx.channel.send('bisexuals are werewolves confirmed')
         elif thing == 1:
             await ctx.channel.send("a bisexual witch call that a bihexual")
         elif thing == 2:
@@ -168,8 +168,8 @@ async def on_message(ctx):
         if thing == 3:
             await ctx.channel.send('i hate haikubot too')
 
-    if '304 bot' in ctx.content.lower():
-        thing = random.randint(0, 6)
+    if '304 bot' in ctx.content.lower() or 'gaybie' in ctx.content.lower():
+        thing = random.randint(0, 8)
         if thing == 0:
             await ctx.channel.send('did someone call me?')
         elif thing == 1:
@@ -178,6 +178,9 @@ async def on_message(ctx):
             await ctx.channel.send('love me take me kiss me get me closer!')
         elif thing == 3:
             await ctx.channel.send('you called?')
+        elif thing == 4:
+            await ctx.channel.send('i\'m a gay baby i\'m a gaybie') 
+        
     
     elif '304' in ctx.content.lower():
         thing = random.randint(0, 5)

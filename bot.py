@@ -6,6 +6,8 @@ import random
 from dotenv import load_dotenv
 from discord.ext import commands
 
+from keep_alive import keep_alive
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
@@ -156,6 +158,5 @@ async def on_message(ctx):
     await bot.process_commands(ctx)
 
 
-
-
+keep_alive()
 bot.run(TOKEN)

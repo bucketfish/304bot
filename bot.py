@@ -81,7 +81,11 @@ z for zzzz
 @bot.command('test')
 async def test(ctx):
     if ctx.author.id == 670962000964354049:
-        await ctx.send('hi tongyu')
+        await ctx.send("tongyu testing")
+
+@bot.event
+async def on_member_join(member):
+    await self.bot.get_channel(788726154269294635).send("welcome to 304's class discord server, " + member.mention + "! i'm your local 304 class bot :D hope you enjoy your time here! do send an intro in " + bot.get_channel(788772685131415602).mention + ".")
 
 @bot.event
 async def on_message(ctx):
@@ -138,17 +142,19 @@ async def on_message(ctx):
         elif thing == 5:
             await ctx.channel.send("please don't hug asexuals you gotta embr**ace** them")
 
-    if 'hate' in ctx.content.lower() and ('haiku bot' in ctx.content.lower() or 'haikubot' in ctx.content.lower()):
-        thing = random.randint(0, 2)
+    if 'haiku bot' in ctx.content.lower() or 'haikubot' in ctx.content.lower() or 'haiku' in ctx.content.lower():
+        thing = random.randint(0, 3)
         if thing == 0:
-            await ctx.channel.send('i hate haiku bot too')
+            await ctx.channel.send('... did someone mention haikubot?')
         if thing == 1:
             await ctx.channel.send("you're so mean to haiku baby😤")
         if thing == 2:
-            await ctx.channel.send('haiku bot <3')
+            await ctx.channel.send('haiku bot :O')
+        if thing == 3:
+            await ctx.channel.send('i hate haikubot too')
 
     if '304' in ctx.content.lower():
-        thing = random.randint(0, 4)
+        thing = random.randint(0, 3)
         if thing == 0:
             await ctx.channel.send('i LOVE 304!!! <333')
         elif thing == 1:

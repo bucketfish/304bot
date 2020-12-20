@@ -92,11 +92,13 @@ async def on_message(ctx):
     if ctx.author == bot.user:
         return
 
+    message = ctx.content.lower().split()
+
     if 'happy birthday' in ctx.content.lower():
         await ctx.channel.send('happy birthday!🎈🎉')
 
-    if 'aro' in ctx.content.lower():
-        thing = random.randint(0, 10)
+    if 'aro' in message:
+        thing = random.randint(0, 15)
         if thing == 0:
             await ctx.channel.send('aromatic 🕯')
         elif thing == 1:
@@ -110,8 +112,8 @@ async def on_message(ctx):
         elif thing == 5:
             await ctx.channel.send('aro rights!')
 
-    if 'gay' in ctx.content.lower():
-        thing = random.randint(0, 10)
+    if 'gay' in message:
+        thing = random.randint(0, 15)
         if thing == 0:
             await ctx.channel.send('GAYYYYYYYYY')
         elif thing == 1:
@@ -127,8 +129,8 @@ async def on_message(ctx):
         elif thing == 6:
             await ctx.channel.send('i am a secret gaygent and i\'m spying shh')
 
-    if 'ace' in ctx.content.lower():
-        thing = random.randint(0, 10)
+    if 'ace' in message:
+        thing = random.randint(0, 15)
         if thing == 0:
             await ctx.channel.send('i aced my bot exams to become a real bot :D')
         elif thing == 1:
@@ -142,8 +144,8 @@ async def on_message(ctx):
         elif thing == 5:
             await ctx.channel.send("please don't hug asexuals you gotta embr**ace** them")
 
-    if 'bi' in ctx.content.lower():
-        thing = random.randint(0, 10)
+    if 'bi' in message:
+        thing = random.randint(0, 15)
         if thing == 0:
             await ctx.channel.send('bisexuals are werewolves confirmed')
         elif thing == 1:
@@ -157,8 +159,8 @@ async def on_message(ctx):
         elif thing == 5:
             await ctx.channel.send("pray for all the bisexual's ankles during this cold time😔")
 
-    if 'haiku bot' in ctx.content.lower() or 'haikubot' in ctx.content.lower() or 'haiku' in ctx.content.lower():
-        thing = random.randint(0, 3)
+    if 'haiku bot' in message or 'haikubot' in message or 'haiku' in message:
+        thing = random.randint(0, 5)
         if thing == 0:
             await ctx.channel.send('... did someone mention haikubot?')
         if thing == 1:
@@ -168,8 +170,8 @@ async def on_message(ctx):
         if thing == 3:
             await ctx.channel.send('i hate haikubot too')
 
-    if '304 bot' in ctx.content.lower() or 'gaybie' in ctx.content.lower():
-        thing = random.randint(0, 8)
+    if '304 bot' in message or 'gaybie' in message:
+        thing = random.randint(0, 10)
         if thing == 0:
             await ctx.channel.send('did someone call me?')
         elif thing == 1:
@@ -179,11 +181,11 @@ async def on_message(ctx):
         elif thing == 3:
             await ctx.channel.send('you called?')
         elif thing == 4:
-            await ctx.channel.send('i\'m a gay baby i\'m a gaybie') 
-        
-    
-    elif '304' in ctx.content.lower():
-        thing = random.randint(0, 5)
+            await ctx.channel.send('i\'m a gay baby i\'m a gaybie')
+
+
+    elif '304' in message:
+        thing = random.randint(0, 10)
         if thing == 0:
             await ctx.channel.send('i LOVE 304!!! <333')
         elif thing == 1:
@@ -193,34 +195,34 @@ async def on_message(ctx):
         elif thing == 3:
             await ctx.channel.send('omg did you know i love 304 wooooo')
 
-    if ctx.content.lower()[0] == 'a':
+    if message[0][0] == 'a':
         thing = random.randint(0, 20)
         if thing == 0:
           await ctx.channel.send('a is for ace-icles')
         elif thing == 1:
           await ctx.channel.send('aaaaaaaaaaaa')
 
-    if ctx.content.lower()[0] == 'hi':
+    if 'hi' in message:
         thing = random.randint(0, 5)
         if thing == 0:
           await ctx.channel.send('greetings!')
 
-    if ctx.content.lower()[0] == 'z':
+    if message[0][0] == 'z':
         thing = random.randint(0, 20)
         if thing == 0:
           await ctx.channel.send('\'m sleepy...💤😪')
         elif thing == 1:
           await ctx.channel.send('i know our curfew\'s at 3.04am but still go sleep pls')
 
-    if 'robot' in ctx.content.lower() or 'bot' in ctx.content.lower():
-        thing = random.randint(0, 6)
+    if 'robot' in message or 'bot' in message:
+        thing = random.randint(0, 15)
         if thing == 0:
             await ctx.channel.send('bot! my kin :D')
         elif thing == 1:
             await ctx.channel.send('family? my friends? my life?')
         elif thing == 2:
             await ctx.channel.send('sometimes i can\'t believe i\'m a bot...')
-  
+
     await bot.process_commands(ctx)
 
 

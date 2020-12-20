@@ -85,7 +85,7 @@ async def test(ctx):
 
 @bot.event
 async def on_member_join(member):
-    await self.bot.get_channel(788726154269294635).send("welcome to 304's class discord server, " + member.mention + "! i'm your local 304 class bot :D hope you enjoy your time here! do send an intro in " + bot.get_channel(788772685131415602).mention + ".")
+    await bot.get_channel(788726154269294635).send("welcome to 304's class discord server, " + member.mention + "! i'm your local 304 class bot :D hope you enjoy your time here! do send an intro in " + bot.get_channel(788772685131415602).mention + ".")
 
 @bot.event
 async def on_message(ctx):

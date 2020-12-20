@@ -142,6 +142,21 @@ async def on_message(ctx):
         elif thing == 5:
             await ctx.channel.send("please don't hug asexuals you gotta embr**ace** them")
 
+    if 'bi' in ctx.content.lower():
+        thing = random.randint(0, 10)
+        if thing == 0:
+            await ctx.channel.send('bisexuals are   werewolves confirmed')
+        elif thing == 1:
+            await ctx.channel.send("a bisexual witch call that a bihexual")
+        elif thing == 2:
+            await ctx.channel.send('ways to attract a bisexual: make lots of bi puns')
+        elif thing == 3:
+            await ctx.channel.send('bi-derman bi-derman')
+        elif thing == 4:
+            await ctx.channel.send('hey all my bi babies out there please check your posture')
+        elif thing == 5:
+            await ctx.channel.send("pray for all the bisexual's ankles during this cold time😔")
+
     if 'haiku bot' in ctx.content.lower() or 'haikubot' in ctx.content.lower() or 'haiku' in ctx.content.lower():
         thing = random.randint(0, 3)
         if thing == 0:
@@ -153,14 +168,56 @@ async def on_message(ctx):
         if thing == 3:
             await ctx.channel.send('i hate haikubot too')
 
-    if '304' in ctx.content.lower():
-        thing = random.randint(0, 3)
+    if '304 bot' in ctx.content.lower():
+        thing = random.randint(0, 6)
+        if thing == 0:
+            await ctx.channel.send('did someone call me?')
+        elif thing == 1:
+            await ctx.channel.send('is anyone talking about me behind my back 👀')
+        elif thing == 2:
+            await ctx.channel.send('love me take me kiss me get me closer!')
+        elif thing == 3:
+            await ctx.channel.send('you called?')
+    
+    elif '304' in ctx.content.lower():
+        thing = random.randint(0, 5)
         if thing == 0:
             await ctx.channel.send('i LOVE 304!!! <333')
         elif thing == 1:
             await ctx.channel.send('304 FTW 🥳🎉')
+        elif thing == 2:
+            await ctx.channel.send('304 BEST because less stairs')
+        elif thing == 3:
+            await ctx.channel.send('omg did you know i love 304 wooooo')
 
+    if ctx.content.lower()[0] == 'a':
+        thing = random.randint(0, 20)
+        if thing == 0:
+          await ctx.channel.send('a is for ace-icles')
+        elif thing == 1:
+          await ctx.channel.send('aaaaaaaaaaaa')
 
+    if ctx.content.lower()[0] == 'hi':
+        thing = random.randint(0, 5)
+        if thing == 0:
+          await ctx.channel.send('greetings!')
+
+    if ctx.content.lower()[0] == 'z':
+        thing = random.randint(0, 20)
+        if thing == 0:
+          await ctx.channel.send('\'m sleepy...💤😪')
+        elif thing == 1:
+          await ctx.channel.send('i know our curfew\'s at 3.04am but still go sleep pls')
+
+    if 'robot' in ctx.content.lower() or 'bot' in ctx.content.lower():
+        thing = random.randint(0, 6)
+        if thing == 0:
+            await ctx.channel.send('bot! my kin :D')
+        elif thing == 1:
+            await ctx.channel.send('family? my friends? my life?')
+        elif thing == 2:
+            await ctx.channel.send('sometimes i can\'t believe i\'m a bot...')
+  
     await bot.process_commands(ctx)
 
 

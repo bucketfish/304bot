@@ -19,7 +19,7 @@ error = ("sorry, couldn't understand")
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Game('with 304\'20! | ~help'))
+    await bot.change_presence(activity=discord.Game('with 304\'21! | ~help'))
 
 @bot.command(name="ping")
 async def pingpong(ctx):

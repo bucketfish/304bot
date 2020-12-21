@@ -39,9 +39,9 @@ async def help(ctx):
 > prefix: `~`
 
 > current commands:
-> - `help` to show this page!
-> - `ping` to test if the bot is online
-> - `alphabet` to show the gay alphabet
+> `~help` to show this page!
+> `~ping` to test if the bot is online
+> `~alphabet` to show the gay alphabet
 
 > i also sometime respond to messages ^^
     """)

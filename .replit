@@ -1,2 +1,2 @@
 language = "bash"
-run = "python bot.py"
+run = "pip install discord.py; pip install python_dotenv; python bot.py"

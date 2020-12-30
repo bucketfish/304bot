@@ -6,7 +6,7 @@ import random
 from dotenv import load_dotenv
 from discord.ext import commands
 
-#from keep_alive import keep_alive
+from keep_alive import keep_alive
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -82,7 +82,7 @@ z for zzzz
 @bot.command('github')
 async def github(ctx):
     e = discord.Embed(title="304bot's github",
-                      url="https://github.com/fqdingsky/304botm",
+                      url="https://github.com/fqdingsky/304bot",
                       description="github repository for 304bot's code!")
     await ctx.send(embed=e)
 
@@ -234,5 +234,5 @@ async def on_message(ctx):
     await bot.process_commands(ctx)
 
 
-#keep_alive()
+keep_alive()
 bot.run(TOKEN)

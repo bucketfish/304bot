@@ -6,7 +6,7 @@ import random
 from dotenv import load_dotenv
 from discord.ext import commands
 
-from keep_alive import keep_alive
+#from keep_alive import keep_alive
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -42,11 +42,12 @@ async def help(ctx):
 > `~help` to show this page!
 > `~ping` to test if the bot is online
 > `~alphabet` to show the gay alphabet
+> `~github` to find the link to the bot's github repo
 
 > i also sometime respond to messages ^^
     """)
 
-@bot.command(name="alphabet")
+@bot.command("alphabet")
 async def alphabet(ctx):
     await ctx.send("""
 _**__THE GAY ALPHABET__**_
@@ -77,6 +78,13 @@ x for xzswerdtfyguhijlouytrse
 y for yeehaw
 z for zzzz
     """)
+
+@bot.command('github')
+async def github(ctx):
+    e = discord.Embed(title="304bot's github",
+                      url="https://github.com/fqdingsky/304botm",
+                      description="github repository for 304bot's code!")
+    await ctx.send(embed=e)
 
 @bot.command('test')
 async def test(ctx):
@@ -226,5 +234,5 @@ async def on_message(ctx):
     await bot.process_commands(ctx)
 
 
-keep_alive()
+#keep_alive()
 bot.run(TOKEN)

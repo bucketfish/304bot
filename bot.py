@@ -231,6 +231,13 @@ async def on_message(ctx):
         elif thing == 2:
             await ctx.channel.send('sometimes i can\'t believe i\'m a bot...')
 
+    if 'flavouring' in message or 'flavoring' in message:
+      thing = random.int(0, 3):
+      if thing == 0:
+        await ctx.channel.send('NOT TASTY. WOULD NOT RECOMMEND.')
+      elif thing == 1:
+        await ctx.channel.send('maggie mee')
+
     await bot.process_commands(ctx)
 
 

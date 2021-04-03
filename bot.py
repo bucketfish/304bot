@@ -179,7 +179,7 @@ async def on_message(ctx):
             await ctx.channel.send('i hate haikubot too')
 
 
-    if 'scream with me gaybie' in message:
+    if 'scream with me gaybie' in ctx.content.lower():
       await ctx.channel.send('aaaaaaaaaaa')
 
     elif '304 bot' in message or 'gaybie' in message:
@@ -236,7 +236,7 @@ async def on_message(ctx):
             await ctx.channel.send('sometimes i can\'t believe i\'m a bot...')
 
     if 'flavouring' in message or 'flavoring' in message:
-      thing = random.randintint(0, 3)
+      thing = random.randint(0, 3)
       if thing == 0:
         await ctx.channel.send('NOT TASTY. WOULD NOT RECOMMEND.')
       elif thing == 1:

@@ -207,6 +207,10 @@ async def on_message(ctx):
         elif thing == 3:
             await ctx.channel.send('omg did you know i love 304 wooooo')
 
+    if 'should up' in ctx.content.lower():
+      await ctx.channel.send('should up? \*zips mouth*')
+
+
     if message[0][0] == 'a':
         thing = random.randint(0, 20)
         if thing == 0:

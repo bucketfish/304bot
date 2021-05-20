@@ -219,6 +219,9 @@ async def on_message(ctx):
     if 'scream with me gaybie' in ctx.content.lower():
       await ctx.channel.send('aaaaaaaaaaa')
 
+    elif 'gaybie kill them' in ctx.content.lower():
+      await ctx.channel.send('THEY HAVE BEEN STAB\'D! CRIMES :dagger:')
+
     elif '304 bot' in message or 'gaybie' in message:
         thing = random.randint(0, 10)
         if thing == 0:

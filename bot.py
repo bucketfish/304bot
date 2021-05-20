@@ -104,19 +104,20 @@ async def test(ctx):
 async def minecraft(ctx):
 
     # 'status' is supported by all Minecraft servers that are version 1.7 or higher.
-    status = server.status()
+    try:
+      status = server.status()
 
-    list = []
+      list = []
 
-    for person in status.players.sample:
-        print(person.name)
-        list.append(person.name)
+      for person in status.players.sample:
+          print(person.name)
+          list.append(person.name)
 
-    print("some people are online! they are: {0}".format(", ".join(list)))
-    if list == []:
-        await ctx.send("server is offline. turn it on! :D")
+      print("some people are online! they are: {0}".format(", ".join(list)))
 
-    await ctx.send("some people are online at curfew_at_304.aternos.me! they are: {0}".format(", ".join(list)))
+      await ctx.send("some people are online at curfew_at_304.aternos.me! they are: {0}".format(", ".join(list)))
+    except:
+      await ctx.send("server is offline. turn it on! :D")
 
 @bot.command('nya')
 async def nya_(ctx, *args):

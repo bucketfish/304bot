@@ -47,6 +47,7 @@ async def help(ctx):
 > `~ping` to test if the bot is online
 > `~alphabet` to show the gay alphabet
 > `~github` to find the link to the bot's github repo
+> `~minecraft` to get the status of the minecraft server!
 
 > i also sometime respond to messages ^^
     """)

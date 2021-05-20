@@ -9,6 +9,9 @@ from mcstatus import MinecraftServer
 
 from keep_alive import keep_alive
 
+from small import nya, oo
+
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
@@ -48,6 +51,7 @@ async def help(ctx):
 > `~alphabet` to show the gay alphabet
 > `~github` to find the link to the bot's github repo
 > `~minecraft` to get the status of the minecraft server!
+> `~nya [text]` and `~oo [text]` are some pretty fun commands too :)
 
 > i also sometime respond to messages ^^
     """)
@@ -113,6 +117,14 @@ async def minecraft(ctx):
         await ctx.send("server is offline. turn it on! :D")
 
     await ctx.send("some people are online at curfew_at_304.aternos.me! they are: {0}".format(", ".join(list)))
+
+@bot.command('nya')
+async def nya_(ctx, *args):
+    await ctx.send(nya(" ".join(args[:])))
+
+@bot.command('oo')
+async def oo_(ctx, *args):
+    await ctx.send(oo(" ".join(args[:])))
 
 
 @bot.event

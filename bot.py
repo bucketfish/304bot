@@ -5,6 +5,7 @@ import random
 
 from dotenv import load_dotenv
 from discord.ext import commands
+from mcstatus import MinecraftServer
 
 from keep_alive import keep_alive
 
@@ -16,6 +17,9 @@ bot = commands.Bot(command_prefix='~')
 bot.remove_command("help")
 
 error = ("sorry, couldn't understand")
+
+server = MinecraftServer.lookup("curfew_at_304.aternos.me:44614")
+
 
 @bot.event
 async def on_ready():
@@ -89,7 +93,26 @@ async def github(ctx):
 @bot.command('test')
 async def test(ctx):
     if ctx.author.id == 670962000964354049:
-        await ctx.send("tongyu testing")
+        await ctx.send("tongyu testing :D")
+
+@bot.command('minecraft')
+async def minecraft(ctx):
+
+    # 'status' is supported by all Minecraft servers that are version 1.7 or higher.
+    status = server.status()
+
+    list = []
+
+    for person in status.players.sample:
+        print(person.name)
+        list.append(person.name)
+
+    print("some people are online! they are: {0}".format(", ".join(list)))
+    if list == []:
+        await ctx.send("server is offline. turn it on! :D")
+
+    await ctx.send("some people are online at curfew_at_304.aternos.me! they are: {0}".format(", ".join(list)))
+
 
 @bot.event
 async def on_member_join(member):
@@ -247,7 +270,6 @@ async def on_message(ctx):
         await ctx.channel.send('maggie mee')
 
     await bot.process_commands(ctx)
-
 
 keep_alive()
 bot.run(TOKEN)

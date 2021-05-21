@@ -6,6 +6,7 @@ import random
 from dotenv import load_dotenv
 from discord.ext import commands
 from mcstatus import MinecraftServer
+from datetime import *
 
 from keep_alive import keep_alive
 
@@ -52,6 +53,7 @@ async def help(ctx):
 > `~github` to find the link to the bot's github repo
 > `~minecraft` to get the status of the minecraft server!
 > `~nya [text]` and `~oo [text]` are some pretty fun commands too :)
+> `~pride` tells you how far away pride month is :D
 
 > i also sometime respond to messages ^^
     """)
@@ -127,6 +129,19 @@ async def nya_(ctx, *args):
 async def oo_(ctx, *args):
     await ctx.send(oo(" ".join(args[:])))
 
+@bot.command('pride')
+async def pride(ctx):
+    response = ""
+    if date.today().month == 6:
+        response += "we're in pride month!! :rainbow_flag: :tada: :partying_face:"
+    else:
+        if date.today().month < 6:
+            pridemonth = date(date.today().year, 6, 1)
+        else:
+            pridemonth = date(date.today().year + 1, 6, 1)
+        response += str((pridemonth - date.today()).days) + " days left to pride month!"
+
+    await ctx.send(response)
 
 @bot.event
 async def on_member_join(member):

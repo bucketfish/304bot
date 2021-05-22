@@ -50,10 +50,20 @@ async def on_ready():
     global dnd_players
 
     await bot.change_presence(activity=discord.Game('with 304\'21! | ~help'))
-    try:
-        dnd_players = load_obj('dnd_players')
-    except:
-        dnd_players = {}
+    #try:
+    dnd_players = load_obj('dnd_players')
+    for key, value in dnd_players.items():
+        try:
+            if value.money:
+                pass
+        except:
+            dnd_players[key] = Player(dnd_players[key].user, dnd_players[key].abilities, dnd_players[key].name)
+
+        finally:
+            print(vars(dnd_players[key]))
+
+    #except:
+    #    dnd_players = {}
     print(dnd_players)
 
 @bot.command(name="ping")
@@ -172,17 +182,23 @@ async def pride(ctx):
     await ctx.send(response)
 
 @bot.command('dnd', aliases = ['d&d', 'd'])
-async def dnd(ctx, do = "help", what = "", who = "", additional = 0, *args):
+async def dnd(ctx, do = "help", what = "", additional = 0, person: discord.User = None, *args):
     global dnd_players
 
     def check(message):
         return message.author.id == ctx.message.author.id and message.content != ""
 
-    if who == "":
+    try:
+        if not additional.lstrip("-").isdigit() or not isinstance(additional, (int, float)):
+            who = additional
+    except:
+        pass
+
+    if person == None:
         who = ctx.author
-    elif who in [0, 1, -1, "0", "1", "-1"]:
-        additional = who
-        who = ctx.author
+    else:
+        who = person
+
 
 
     if do == "player":
@@ -223,7 +239,7 @@ async def dnd(ctx, do = "help", what = "", who = "", additional = 0, *args):
                     else:
                         await ctx.send("that's not a valid option!")
 
-            text = "your character, " + dnd_players[who.id].name + " is created with the following abilities:\n"
+            text = "your character, " + dnd_players[who.id].name + ", is created with the following abilities:\n"
             for i in range(6):
                 ability = list(dnd_players[who.id].abilities.keys())[i]
                 text += ability + " - " + str(dnd_players[who.id].abilities[ability]) + "\n"
@@ -232,12 +248,40 @@ async def dnd(ctx, do = "help", what = "", who = "", additional = 0, *args):
             save_obj(dnd_players, "dnd_players")
 
         elif what in ["query", "info"]:
-            text = "your character has the following abilities:\n"
+            print(vars(dnd_players[who.id]))
+
+            text = "your character, " + dnd_players[who.id].name + ", has the following abilities:\n"
             for i in range(6):
                 ability = list(dnd_players[who.id].abilities.keys())[i]
                 text += ability + " - " + str(dnd_players[who.id].abilities[ability]) + "\n"
+            text += "you also have " + str(dnd_players[who.id].money) + " coins."
             await ctx.send(text)
 
+        elif what in ["money", "coins", "coin"]:
+            dnd_players[who.id].add_money(additional)
+            await ctx.send("you added " + str(additional) + " coins to " + dnd_players[who.id].name + ". they have " + str(dnd_players[who.id].money) + " coins now.")
+
+        elif what in ["item", "thing", "take"]:
+            await ctx.send("what does " + dnd_players[who.id].name + " pick up?")
+            message = await bot.wait_for(
+                        "message", timeout=120, check=check
+                    )
+            dnd_players[who.id].add_item(message.content.lower())
+            await ctx.send(dnd_players[who.id].name + " picks up the " + message.content.lower() + ".")
+
+        elif what in ["drop", "throw", "destroy", "use", "lose"]:
+            await ctx.send("what does " + dnd_players[who.id].name + " drop?")
+            message = await bot.wait_for(
+                        "message", timeout=120, check=check
+                    )
+            if message.content.lower() in dnd_players[who.id].items:
+                dnd_players[who.id].remove_item(message.content.lower())
+                await ctx.send(dnd_players[who.id].name + " loses the " + message.content.lower() + ".")
+            else:
+                await ctx.send("you don't have that!")
+
+        elif what in ['i', 'inventory', 'items', 'inv']:
+            await ctx.send("you have: " + ', '.join(dnd_players[who.id].items) + '.')
 
 
     elif do == "roll":

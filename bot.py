@@ -15,6 +15,13 @@ from small import nya, oo
 
 from dnd import *
 
+import logging
+
+logger = logging.getLogger('discord')
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -64,7 +71,6 @@ async def on_ready():
 
     #except:
     #    dnd_players = {}
-    print(dnd_players)
 
 @bot.command(name="ping")
 async def pingpong(ctx):
@@ -150,10 +156,10 @@ async def minecraft(ctx):
       list = []
 
       for person in status.players.sample:
-          print(person.name)
+          #print(person.name)
           list.append(person.name)
 
-      print("some people are online! they are: {0}".format(", ".join(list)))
+      #print("some people are online! they are: {0}".format(", ".join(list)))
 
       await ctx.send("some people are online at curfew_at_304.aternos.me! they are: {0}".format(", ".join(list)))
     except:
@@ -248,7 +254,7 @@ async def dnd(ctx, do = "help", what = "", additional = 0, person: discord.User 
             save_obj(dnd_players, "dnd_players")
 
         elif what in ["query", "info"]:
-            print(vars(dnd_players[who.id]))
+            #print(vars(dnd_players[who.id]))
 
             text = "your character, " + dnd_players[who.id].name + ", has the following abilities:\n"
             for i in range(6):
@@ -291,7 +297,6 @@ async def dnd(ctx, do = "help", what = "", additional = 0, person: discord.User 
 
         elif what in ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]:
             await ctx.send(dnd_players[who.id].roll(what, int(additional)))
-            print(additional)
 
         else:
             await ctx.send("that's not a valid roll!")

@@ -6,19 +6,19 @@ from math import *
 
 class Player:
 
-    def __init__(self, author):
+    def __init__(self, author, abilities = {
+    'strength': 0,
+    'dexterity': 0,
+    'constitution': 0,
+    'intelligence': 0,
+    'wisdom': 0,
+    'charisma': 0
+    }, name = ""):
         self.user = str(author)
-        self.name = ""
-        self.abilities = {
-        'strength': 0,
-        'dexterity': 0,
-        'constitution': 0,
-        'intelligence': 0,
-        'wisdom': 0,
-        'charisma': 0
-        }
+        self.name = name
+        self.abilities = abilities
+        self.money = 0
         self.items = []
-        self.armor = []
 
     def set_name(self, name):
         self.name = name
@@ -38,14 +38,9 @@ class Player:
         except:
             pass
 
-    def add_armor(self, item):
-        self.armor.append(item)
+    def add_money(self, money):
+        self.money += int(money)
 
-    def remove_armor(self, item):
-        try:
-            self.armor.remove(item)
-        except:
-            pass
 
     def roll(self, ability, advantage = 0):
         reply = ""

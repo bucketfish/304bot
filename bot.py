@@ -1,7 +1,7 @@
 import os
 import discord
 
-import random
+from random import *
 import pickle
 
 from dotenv import load_dotenv
@@ -286,7 +286,7 @@ async def on_message(ctx):
         await ctx.channel.send('happy birthday!🎈🎉')
 
     if 'aro' in message:
-        thing = random.randint(0, 15)
+        thing = randint(0, 15)
         if thing == 0:
             await ctx.channel.send('aromatic 🕯')
         elif thing == 1:
@@ -301,7 +301,7 @@ async def on_message(ctx):
             await ctx.channel.send('aro rights!')
 
     if 'gay' in message:
-        thing = random.randint(0, 15)
+        thing = randint(0, 15)
         if thing == 0:
             await ctx.channel.send('GAYYYYYYYYY')
         elif thing == 1:
@@ -318,7 +318,7 @@ async def on_message(ctx):
             await ctx.channel.send('i am a secret gaygent and i\'m spying shh')
 
     if 'ace' in message:
-        thing = random.randint(0, 15)
+        thing = randint(0, 15)
         if thing == 0:
             await ctx.channel.send('i aced my bot exams to become a real bot :D')
         elif thing == 1:
@@ -333,7 +333,7 @@ async def on_message(ctx):
             await ctx.channel.send("please don't hug asexuals you gotta embr**ace** them")
 
     if 'bi' in message:
-        thing = random.randint(0, 15)
+        thing = randint(0, 15)
         if thing == 0:
             await ctx.channel.send('bisexuals are werewolves confirmed')
         elif thing == 1:
@@ -348,7 +348,7 @@ async def on_message(ctx):
             await ctx.channel.send("pray for all the bisexual's ankles during this cold time😔")
 
     if 'haiku bot' in message or 'haikubot' in message or 'haiku' in message:
-        thing = random.randint(0, 5)
+        thing = randint(0, 5)
         if thing == 0:
             await ctx.channel.send('... did someone mention haikubot?')
         if thing == 1:
@@ -366,7 +366,7 @@ async def on_message(ctx):
       await ctx.channel.send('THEY HAVE BEEN STAB\'D! CRIMES :dagger:')
 
     elif '304 bot' in message or 'gaybie' in message:
-        thing = random.randint(0, 10)
+        thing = randint(0, 10)
         if thing == 0:
             await ctx.channel.send('did someone call me?')
         elif thing == 1:
@@ -380,7 +380,7 @@ async def on_message(ctx):
 
 
     elif '304' in message:
-        thing = random.randint(0, 10)
+        thing = randint(0, 10)
         if thing == 0:
             await ctx.channel.send('i LOVE 304!!! <333')
         elif thing == 1:
@@ -395,26 +395,26 @@ async def on_message(ctx):
 
 
     if message[0][0] == 'a':
-        thing = random.randint(0, 20)
+        thing = randint(0, 20)
         if thing == 0:
           await ctx.channel.send('a is for ace-icles')
         elif thing == 1:
           await ctx.channel.send('aaaaaaaaaaaa')
 
     if 'hi' in message:
-        thing = random.randint(0, 5)
+        thing = randint(0, 5)
         if thing == 0:
           await ctx.channel.send('greetings!')
 
     if message[0][0] == 'z':
-        thing = random.randint(0, 20)
+        thing = randint(0, 20)
         if thing == 0:
           await ctx.channel.send('\'m sleepy...💤😪')
         elif thing == 1:
           await ctx.channel.send('i know our curfew\'s at 3.04am but still go sleep pls')
 
     if 'robot' in message or 'bot' in message:
-        thing = random.randint(0, 15)
+        thing = randint(0, 15)
         if thing == 0:
             await ctx.channel.send('bot! my kin :D')
         elif thing == 1:
@@ -423,7 +423,7 @@ async def on_message(ctx):
             await ctx.channel.send('sometimes i can\'t believe i\'m a bot...')
 
     if 'flavouring' in message or 'flavoring' in message:
-      thing = random.randint(0, 3)
+      thing = randint(0, 3)
       if thing == 0:
         await ctx.channel.send('NOT TASTY. WOULD NOT RECOMMEND.')
       elif thing == 1:

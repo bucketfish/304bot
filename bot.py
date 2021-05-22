@@ -2,6 +2,7 @@ import os
 import discord
 
 import random
+import pickle
 
 from dotenv import load_dotenv
 from discord.ext import commands
@@ -11,6 +12,8 @@ from datetime import *
 from keep_alive import keep_alive
 
 from small import nya, oo
+
+from dnd import *
 
 
 load_dotenv()
@@ -25,9 +28,33 @@ error = ("sorry, couldn't understand")
 server = MinecraftServer.lookup("curfew_at_304.aternos.me:44614")
 
 
+dnd_players = {}
+
+
+def save_obj(obj, name):
+    try:
+        os.makedirs('saves')
+    except:
+        pass
+
+    with open('saves/'+ name + '.pkl', 'wb+') as f:
+        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+
+def load_obj(name):
+    with open('saves/' + name + '.pkl', 'rb') as f:
+        return pickle.load(f)
+
+
 @bot.event
 async def on_ready():
+    global dnd_players
+
     await bot.change_presence(activity=discord.Game('with 304\'21! | ~help'))
+    try:
+        dnd_players = load_obj('dnd_players')
+    except:
+        dnd_players = {}
+    print(dnd_players)
 
 @bot.command(name="ping")
 async def pingpong(ctx):
@@ -54,6 +81,7 @@ async def help(ctx):
 > `~minecraft` to get the status of the minecraft server!
 > `~nya [text]` and `~oo [text]` are some pretty fun commands too :)
 > `~pride` tells you how far away pride month is :D
+> `~dnd` is a sub-module that contains a very stripped-down dnd bot. try `~dnd help` to see what it has!
 
 > i also sometime respond to messages ^^
     """)
@@ -142,6 +170,106 @@ async def pride(ctx):
         response += str((pridemonth - date.today()).days) + " days left to pride month!"
 
     await ctx.send(response)
+
+@bot.command('dnd', aliases = ['d&d', 'd'])
+async def dnd(ctx, do = "help", what = "", who = "", additional = 0, *args):
+    global dnd_players
+
+    def check(message):
+        return message.author.id == ctx.message.author.id and message.content != ""
+
+    if who == "":
+        who = ctx.author
+    elif who in [0, 1, -1, "0", "1", "-1"]:
+        additional = who
+        who = ctx.author
+
+
+    if do == "player":
+        if what == "create":
+            dnd_players[who.id] = Player(who)
+            sent_initial_message = await ctx.send(
+            "creating dnd character for you... follow the instructions!\n\nyour character has 6 abilities: strength, dexterity, constitution, intelligence, wisdom, and charisma.\nthese abilities can have a score of 15, 14, 13, 12, 10, or 8."
+            )
+            abilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma']
+            scores = [15, 14, 13, 12, 10, 8]
+
+            await ctx.send("but first, what's your character's name?")
+            message = await bot.wait_for(
+                "message", timeout=120, check=check
+            )
+            dnd_players[who.id].set_name(message.content.lower())
+
+            await ctx.send("that's a good name.")
+            for i in range(6):
+                await ctx.send("\n\nwhich ability would you like to use the score of " + str(scores[i]) + " on?")
+                done = False
+                while done == False:
+                    message = await bot.wait_for(
+                        "message", timeout=120, check=check
+                    )
+
+                    if message.content.lower() in abilities:
+                        dnd_players[ctx.author.id].update_ability(message.content.lower(), scores[i])
+                        await ctx.send("set " + message.content.lower() + " to " + str(scores[i]) + ".")
+                        abilities.remove(message.content.lower())
+                        done = True
+
+                    elif message.content.lower() in ["cancel", "quit", "exit"]:
+                        dnd_players.pop(ctx.author.id, None)
+                        await ctx.send("character creation cancelled. see you!")
+                        return
+
+                    else:
+                        await ctx.send("that's not a valid option!")
+
+            text = "your character, " + dnd_players[who.id].name + " is created with the following abilities:\n"
+            for i in range(6):
+                ability = list(dnd_players[who.id].abilities.keys())[i]
+                text += ability + " - " + str(dnd_players[who.id].abilities[ability]) + "\n"
+
+            await ctx.send(text)
+            save_obj(dnd_players, "dnd_players")
+
+        elif what in ["query", "info"]:
+            text = "your character has the following abilities:\n"
+            for i in range(6):
+                ability = list(dnd_players[who.id].abilities.keys())[i]
+                text += ability + " - " + str(dnd_players[who.id].abilities[ability]) + "\n"
+            await ctx.send(text)
+
+
+
+    elif do == "roll":
+        if what == "":
+            number = randint(1, 20)
+            await ctx.send(str(number))
+
+        elif what in ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]:
+            await ctx.send(dnd_players[who.id].roll(what, int(additional)))
+            print(additional)
+
+        else:
+            await ctx.send("that's not a valid roll!")
+
+    elif do == "help":
+        await ctx.send("""
+        > welcome to the dnd module!
+        > the dnd parts of me can only keep track of player abilities and roll dice. but i think it's quite a lot :)
+        > aliases: `~dnd`, `~d`, `~d&d`
+
+        > current commands:
+        > `~dnd help` to show this page!
+        > `~dnd player` includes `~dnd player create`, which brings you through an interactive menu to create your dnd character, as well as `~dnd player query`, which tells you the stats of your character.
+        > `~dnd roll [ability] [advantage]` rolls a die. without the extra bits, it rolls a 1d20. you can add an ability to calculate the value based on your ability modifiers, as well as `1` or `-1` under advantage to get an advantage or disadvantage.
+
+        > that's about it for now! more will be added maybe :D
+            """)
+
+
+    else:
+        await ctx.send("sorry that's not a thing (yet) D:")
+
 
 @bot.event
 async def on_member_join(member):

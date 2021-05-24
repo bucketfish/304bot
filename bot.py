@@ -291,15 +291,39 @@ async def dnd(ctx, do = "help", what = "", additional = 0, person: discord.User 
 
 
     elif do == "roll":
-        if what == "":
-            number = randint(1, 20)
-            await ctx.send(str(number))
 
-        elif what in ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]:
+        if what in ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]:
             await ctx.send(dnd_players[who.id].roll(what, int(additional)))
 
         else:
-            await ctx.send("that's not a valid roll!")
+            try:
+                if 'd' in what:
+                    dice_count = int(what.split('d')[0])
+                    if dice_count == '':
+                        dice_count = 1
+                    dice_num = int(what.split('d')[1])
+                else:
+                    dice_count = 1
+                    dice_num = int(what)
+                result = roll(dice_count, dice_num, additional)
+
+                reply = "you rolled a "
+                for i in result[0]:
+                    if i != result[0][0]:
+                        reply += ", "
+                    reply += str(i)
+
+                reply += "."
+
+
+                if additional != 0:
+                    reply += "\nyou also added a modifier of " + str(additional) + '.'
+
+                if dice_count > 1 or additional != 0:
+                    reply += "\nthat puts your total at " + str(result[1]) + '.'
+                await ctx.send(reply)
+            except:
+                await ctx.send("that's not a valid roll!")
 
     elif do == "help":
         await ctx.send("""

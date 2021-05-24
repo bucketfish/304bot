@@ -2,8 +2,6 @@ from random import *
 from math import *
 
 
-
-
 class Player:
 
     def __init__(self, author, abilities = {
@@ -63,3 +61,15 @@ class Player:
         reply += "\nwith an ability of " + str(self.abilities[ability]) + ", you added a modifier of " + str(floor((self.abilities[ability] - 10) / 2)) + " to your dice score.\nthat puts your " + ability + " check at " + str(value) + "."
 
         return reply
+
+
+def roll(count:int = 1, dice:int = 20, extra:int = 0):
+    rolled = []
+    value = 0
+    for i in range(0, count):
+        rolled.append(randint(1, dice))
+        value += rolled[i]
+
+    value += extra
+
+    return [rolled, value]

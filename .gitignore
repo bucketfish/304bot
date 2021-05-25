@@ -1,6 +1,6 @@
 
 .env
-discord.log
+*.log
 .replit
-saves
-__pycache__
+saves/
+__pycache__/

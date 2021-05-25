@@ -259,7 +259,7 @@ async def dnd(ctx, do = "help", what = "", additional = 0, person: discord.User 
             text = "your character, " + dnd_players[who.id].name + ", has the following abilities:\n"
             for i in range(6):
                 ability = list(dnd_players[who.id].abilities.keys())[i]
-                text += ability + " - " + str(dnd_players[who.id].abilities[ability]) + "\n"
+                text += ability + " - " + str(dnd_players[who.id].abilities[ability]) + " (modifier: " + str(floor((dnd_players[who.id].abilities[ability] - 10) / 2)) + ")\n"
             text += "you also have " + str(dnd_players[who.id].money) + " coins."
             await ctx.send(text)
 
@@ -308,9 +308,12 @@ async def dnd(ctx, do = "help", what = "", additional = 0, person: discord.User 
                 result = roll(dice_count, dice_num, additional)
 
                 reply = "you rolled a "
+                first = True
                 for i in result[0]:
-                    if i != result[0][0]:
+                    if not first:
                         reply += ", "
+                    else:
+                        first = False
                     reply += str(i)
 
                 reply += "."

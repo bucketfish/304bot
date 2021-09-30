@@ -98,9 +98,11 @@ async def help(ctx):
 > `~nya [text]` and `~oo [text]` are some pretty fun commands too :)
 > `~pride` tells you how far away pride month is :D
 > `~dnd` is a sub-module that contains a very stripped-down dnd bot. try `~dnd help` to see what it has!
+> `~gpa find` can help you calculate how much you have to score to reach a certain gpa! yay.
 
 > i also sometime respond to messages ^^
     """)
+
 
 @bot.command("alphabet")
 async def alphabet(ctx):
@@ -186,6 +188,91 @@ async def pride(ctx):
         response += str((pridemonth - date.today()).days) + " days left to pride month!"
 
     await ctx.send(response)
+
+@bot.command("gpa")
+async def gpa(ctx, way = "query"):
+    gpas = {
+    "4.0": 80,
+    "3.6": 70,
+    "3.2": 65,
+    "2.8": 6,
+    "2.4": 55,
+    "2.0": 50,
+    "1.6": 45,
+    "1.2": 40
+    }
+    find_alias = ["howmuch", "find"]
+    query_alias = ["calculate", "query"]
+
+    def check(message):
+        return message.author.id == ctx.message.author.id and message.content != ""
+
+
+    if way in find_alias:
+        gpa = 0
+        aim = ""
+        while gpa == 0:
+            await ctx.send("ok, i'll help you find how much you need to score in order to reach a certain gpa. what's your target gpa?")
+            message = await bot.wait_for(
+                "message", timeout=120, check=check
+            )
+            if message.content.lower() in gpas.keys():
+                gpa = gpas[message.content.lower()]
+                aim = message.content.lower()
+                await ctx.send("great! please send your current grades in the format `[marks] [fullscore] [percentage]`, such as `20 25 10`. type quit anytime to abort, and type done to finish.")
+                message = await bot.wait_for(
+                    "message", timeout=120, check=check
+                )
+
+        count = 0.0
+        weightages = 0
+        fullscore = 0
+
+        while message.content.lower() not in ["done", "quit", "exit"]:
+            values = message.content.lower().split(" ")
+            try:
+                count += (float(values[0]) / float(values[1])) * float(values[2])
+                weightages += int(values[2])
+            except:
+                await ctx.send("couldn't read that D:")
+
+            message = await bot.wait_for(
+                "message", timeout=120, check=check
+            )
+
+        if message.content.lower() == "done":
+            await ctx.send("nice! okay. what's the full score for your final paper?")
+            while fullscore == 0:
+                message = await bot.wait_for(
+                    "message", timeout=120, check=check
+                )
+                try:
+                    fullscore = int(message.content.lower())
+                except:
+                    await ctx.send("i couldn't read that >:(")
+
+            score_needed = (gpa - count) / (100 - weightages) * fullscore
+            await ctx.send("you need a score of " + str(score_needed) + "/" + str(fullscore) + " to score a gpa of " + aim)
+
+
+        elif message.content.lower() in ["quit", "exit"]:
+            await ctx.send("aborting :)")
+
+
+
+
+    elif way == "help":
+        await ctx.send("sorry there's no documentation. ask someone who knows or search the chat lol.")
+
+    elif way in query_alias:
+        pass
+        #calculate cur gpa
+
+    else:
+        await ctx.send("sorry idk what you're saying :(")
+
+
+
 
 @bot.command('dnd', aliases = ['d&d', 'd'])
 async def dnd(ctx, do = "help", what = "", additional = 0, person: discord.User = None, *args):

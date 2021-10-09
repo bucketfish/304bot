@@ -440,7 +440,7 @@ async def on_member_join(member):
 
 @bot.event
 async def on_message(ctx):
-    if ctx.author == bot.user:
+    if ctx.author == bot.user or ctx.channel.id == 879153478935654420:
         return
 
     message = ctx.content.lower().split()

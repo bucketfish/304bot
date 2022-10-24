@@ -6,7 +6,7 @@ import pickle
 
 from dotenv import load_dotenv
 from discord.ext import commands
-from mcstatus import MinecraftServer
+from mcstatus import JavaServer
 from datetime import *
 
 from keep_alive import keep_alive
@@ -32,7 +32,7 @@ bot.remove_command("help")
 
 error = ("sorry, couldn't understand")
 
-server = MinecraftServer.lookup("curfew_at_404.aternos.me:44614")
+server = JavaServer.lookup("curfew_at_404.aternos.me:44614")
 
 
 dnd_players = {}
